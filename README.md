@@ -29,43 +29,29 @@ Javadocs are available [here](http://kevinsawicki.github.com/http-request/apidoc
 See [here](https://github.com/kevinsawicki/http-request/wiki/Used-By) for a
 list of known projects using this library.
 
-### Why was this written?
+### 为什么写这个?
 
-This library was written to make HTTP requests simple and easy when using a `HttpURLConnection`.
+写这个库是为了在使用`HttpURLConnection`来发送HTTP请求的时候更加方便快捷
 
-Libraries like [Apache HttpComponents](http://hc.apache.org) are great but sometimes
-for either simplicity, or perhaps for the environment you are deploying to (Android),
-you just want to use a good old-fashioned `HttpURLConnection`.  This library seeks
-to add convenience and common patterns to the act of making HTTP requests such as
-a fluid-interface for building requests and support for features such as multipart
-requests.
+像[Apache HttpComponents](http://hc.apache.org)这样的组件也是非常好用的，但是有些时候为了更加简单，或者可能因为你部署的环境的问题（比如Android），你只想使用例如`HttpURLConnection`一些过时但是又好用的库。
 
-**Bottom line:** The single goal of this library is to improve the usability of the
-`HttpURLConnection` class.
+这个库寻找一种更加方便和一种更加通用的模式来模拟HTTP请求，并支持多种特性的请求，例如多个请求的任务.
 
-### What are the dependencies?
+### 该库的依赖?
 
-**None**.  The goal of this library is to be a single class class with some inner static
-classes.  The test project does require [Jetty](http://eclipse.org/jetty/) in order
-to test requests against an actual HTTP server implementation.
+**没有**. 整个库只有单一的一个类和一些静态的内部类，测试工程需要[Jetty](http://eclipse.org/jetty/)的支持，用来实现一个真实的HTTP服务器请求来测试请求.
 
-### How are exceptions managed?
+### 如何管理异常?
 
-The `HttpRequest` class does not throw any checked exceptions, instead all low-level
-exceptions are wrapped up in a `HttpRequestException` which extends `RuntimeException`.
-You can access the underlying exception by catching `HttpRequestException` and calling
-`getCause()` which will always return the original `IOException`.
+`HttpRequest`类不抛出任何检查异常,相反的，所有低等级的异常被包装在继承了`RuntimeException`类的`HttpRequestException`中，你可以通过catching`HttpRequestException`以及调用`getCause`方法来获取潜在的异常信息，它总会返回最原始的`IOException`
 
-### Are requests asynchronous?
+### 请求是异步的吗?
 
-**No**.  The underlying `HttpUrlConnection` object that each `HttpRequest`
-object wraps has a synchronous API and therefore all methods on `HttpRequest`
-are also synchronous.
+**不是**.  每个`HttpRequest`对象都包装了`HttpUrlConnection`这个最根本的对象的一个同步API，因此，所有在`HttpRequest`对象中的方法都是同步的。
 
-Therefore it is important to not use an `HttpRequest` object on the main thread
-of your application.
+因此，不要在你的应用程序的主线程中使用`HttpRequest`对象是非常关键的.
 
-Here is a simple Android example of using it from an
+这有一个在Android上使用的小例子
 [AsyncTask](http://developer.android.com/reference/android/os/AsyncTask.html):
 
 ```java
@@ -100,35 +86,34 @@ private class DownloadTask extends AsyncTask<String, Long, File> {
 new DownloadTask().execute("http://google.com");
 ```
 
-## Examples
-
-### Perform a GET request and get the status of the response
+## 示例
+### 执行一个GET请求并返回响应的状态信息
 
 ```java
 int response = HttpRequest.get("http://google.com").code();
 ```
 
-### Perform a GET request and get the body of the response
+### 执行一个GET请求并返回响应的body信息
 
 ```java
 String response = HttpRequest.get("http://google.com").body();
 System.out.println("Response was: " + response);
 ```
 
-### Print the response of a GET request to standard out
+### 标准打印一个GET请求的响应数据
 
 ```java
 HttpRequest.get("http://google.com").receive(System.out);
 ```
 
-### Adding query parameters
+### 添加请求参数
 
 ```java
 HttpRequest request = HttpRequest.get("http://google.com", true, 'q', "baseball gloves", "size", 100);
 System.out.println(request.toString()); // GET http://google.com?q=baseball%20gloves&size=100
 ```
 
-### Using arrays as query parameters
+### 使用数组作为请求参数
 
 ```java
 int[] ids = new int[] { 22, 23 };
@@ -136,7 +121,7 @@ HttpRequest request = HttpRequest.get("http://google.com", true, "id", ids);
 System.out.println(request.toString()); // GET http://google.com?id[]=22&id[]=23
 ```
 
-### Working with request/response headers
+### 和请求/响应的请求头一起使用
 
 ```java
 String contentType = HttpRequest.get("http://google.com")
@@ -145,19 +130,19 @@ String contentType = HttpRequest.get("http://google.com")
 System.out.println("Response content type was " + contentType);
 ```
 
-### Perform a POST request with some data and get the status of the response
+### 执行一个带数据的POST请求并返回响应的状态
 
 ```java
 int response = HttpRequest.post("http://google.com").send("name=kevin").code();
 ```
 
-### Authenticate using Basic authentication
+### 使用最基本的认证请求
 
 ```java
 int response = HttpRequest.get("http://google.com").basic("username", "p4ssw0rd").code();
 ```
 
-### Perform a multipart POST request
+### 执行有文件的请求
 
 ```java
 HttpRequest request = HttpRequest.post("http://google.com");
@@ -167,7 +152,7 @@ if (request.ok())
   System.out.println("Status was updated");
 ```
 
-### Perform a POST request with form data
+### 执行一个具有表单数据的POST请求
 
 ```java
 Map<String, String> data = new HashMap<String, String>();
@@ -177,20 +162,20 @@ if (HttpRequest.post("http://google.com").form(data).created())
   System.out.println("User was created");
 ```
 
-### Copy body of response to a file
+### 把响应的body信息存放在文件中
 
 ```java
 File output = new File("/output/request.out");
 HttpRequest.get("http://google.com").receive(output);
 ```
-### Post contents of a file
+### POST请求包含文件
 
 ```java
 File input = new File("/input/data.txt");
 int response = HttpRequest.post("http://google.com").send(input).code();
 ```
 
-### Using entity tags for caching
+### 使用实体标签进行缓存
 
 ```java
 File latest = new File("/data/cache.json");
@@ -205,7 +190,7 @@ boolean unchanged = HttpRequest.get("http://google.com")
                                .notModified();
 ```
 
-### Using gzip compression
+### 使用gzip压缩方式
 
 ```java
 HttpRequest request = HttpRequest.get("http://google.com");
@@ -215,7 +200,7 @@ String uncompressed = request.body();
 System.out.println("Uncompressed response is: " + uncompressed);
 ```
 
-### Ignoring security when using HTTPS
+### 当使用HTTPS协议是忽略安全
 
 ```java
 HttpRequest request = HttpRequest.get("https://google.com");
@@ -225,7 +210,7 @@ request.trustAllCerts();
 request.trustAllHosts();
 ```
 
-### Configuring an HTTP proxy
+### 配置一个HTTP请求代理
 
 ```java
 HttpRequest request = HttpRequest.get("https://google.com");
@@ -235,16 +220,16 @@ request.useProxy("localhost", 8080);
 request.proxyBasic("username", "p4ssw0rd");
 ```
 
-### Following redirects
+### 重定向
 
 ```java
 int code = HttpRequest.get("http://google.com").followRedirects(true).code();
 ```
 
-### Custom connection factory
+### 自定义连接工场
 
-Looking to use this library with [OkHttp](https://github.com/square/okhttp)?
-Read [here](https://gist.github.com/JakeWharton/5797571).
+查看 [OkHttp](https://github.com/square/okhttp)来使用该库?
+查看 [here](https://gist.github.com/JakeWharton/5797571).
 
 ```java
 HttpRequest.setConnectionFactory(new ConnectionFactory() {
@@ -263,7 +248,7 @@ HttpRequest.setConnectionFactory(new ConnectionFactory() {
 });
 ```
 
-## Contributors
+## 贡献
 
 * [Kevin Sawicki](https://github.com/kevinsawicki) :: [contributions](https://github.com/kevinsawicki/http-request/commits?author=kevinsawicki)
 * [Eddie Ringle](https://github.com/eddieringle) :: [contributions](https://github.com/kevinsawicki/http-request/commits?author=eddieringle)
