@@ -25,8 +25,7 @@ http-request这个库可以从[Maven Central](http://search.maven.org/#search%7C
 
 ### 谁使用它?
 
-See [here](https://github.com/kevinsawicki/http-request/wiki/Used-By) for a
-list of known projects using this library.
+[这里](https://github.com/kevinsawicki/http-request/wiki/Used-By)是已知的项目使用该库
 
 ### 为什么写这个?
 
