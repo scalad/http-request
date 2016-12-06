@@ -1,13 +1,12 @@
-# Http Request [![Build Status](https://travis-ci.org/kevinsawicki/http-request.svg)](https://travis-ci.org/kevinsawicki/http-request)
+# Http 请求 [![Build Status](https://travis-ci.org/kevinsawicki/http-request.svg)](https://travis-ci.org/kevinsawicki/http-request)
 
-A simple convenience library for using a [HttpURLConnection](http://download.oracle.com/javase/6/docs/api/java/net/HttpURLConnection.html)
-to make requests and access the response.
+一个基于[HttpURLConnection](http://download.oracle.com/javase/6/docs/api/java/net/HttpURLConnection.html)简单方便的创建HTTP请求并接收响应数据的工具库.
 
-This library is available under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+在[MIT License](http://www.opensource.org/licenses/mit-license.php)可以获取到该库
 
-## Usage
+## 使用
 
-The http-request library is available from [Maven Central](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.kevinsawicki%22%20AND%20a%3A%22http-request%22).
+http-request这个库可以从[Maven Central](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.kevinsawicki%22%20AND%20a%3A%22http-request%22)获取.
 
 ```xml
 <dependency>
@@ -17,14 +16,14 @@ The http-request library is available from [Maven Central](http://search.maven.o
 </dependency>
 ```
 
-Not using [Maven](http://maven.apache.org/)? Simply copy the [HttpRequest](https://raw.githubusercontent.com/kevinsawicki/http-request/master/lib/src/main/java/com/github/kevinsawicki/http/HttpRequest.java)
-class into your project, update the package declaration, and you are good to go.
+不使用[Maven](http://maven.apache.org/)? 只要复制 [HttpRequest](https://raw.githubusercontent.com/kevinsawicki/http-request/master/lib/src/main/java/com/github/kevinsawicki/http/HttpRequest.java)
+类到你的工种当中, 更新包的报名，然后你就可以使用它了.
 
-Javadocs are available [here](http://kevinsawicki.github.com/http-request/apidocs/index.html).
+你可以从 [这里](http://kevinsawicki.github.com/http-request/apidocs/index.html).获取到javadoc文档
 
 ## FAQ
 
-### Who uses this?
+### 谁使用它?
 
 See [here](https://github.com/kevinsawicki/http-request/wiki/Used-By) for a
 list of known projects using this library.
