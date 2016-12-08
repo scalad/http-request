@@ -173,6 +173,14 @@ File input = new File("/input/data.txt");
 int response = HttpRequest.post("http://google.com").send(input).code();
 ```
 
+### POST请求字符串二进制文件
+
+```java
+String base64 = base64(t[i].getAbsolutePath());
+String body = HttpRequest.post(url)
+	.part("base64Strs", new ByteArrayInputStream(base64.getBytes())).body();
+```
+
 ### 使用实体标签进行缓存
 
 ```java
