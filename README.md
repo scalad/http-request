@@ -119,6 +119,13 @@ HttpRequest request = HttpRequest.get("http://google.com", true, "id", ids);
 System.out.println(request.toString()); // GET http://google.com?id[]=22&id[]=23
 ```
 
+### 使用JSON作为参数
+
+```java
+String body = HttpRequest.put("http://google.com").contentType(HttpRequest.CONTENT_TYPE_JSON).send(jsonString.getBytes()).body();
+System.out.println(body);
+```
+
 ### 和请求/响应的请求头一起使用
 
 ```java
